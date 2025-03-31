@@ -29,9 +29,9 @@ def smaller(fil,M):
     return ngr,fr
 
 img = plt.imread('galaxy_020.jpg')
-img = plt.imread('bird.jpg')
+#img = plt.imread('bird.jpg')
 
 gray,fou = smaller(img,64)
-#plt.imshow(gray,cmap='gray')
-plt.imshow(abs(fou)**(1/4),cmap='gray')
+plt.imshow(gray,cmap='gray')
+#plt.imshow(abs(fou)**(1/4),cmap='gray')
 plt.show()
