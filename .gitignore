@@ -1,0 +1,7 @@
+.DS_Store
+*~
+
+galaxies
+
+*.pyc
+__pycache__

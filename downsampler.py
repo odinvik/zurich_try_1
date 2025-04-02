@@ -68,12 +68,12 @@ def smaller(fil,M,ang):
     nx -= nx % 2
     ny -= ny % 2
     N = 2
-    while N < nx and N < ny:
+    while N < nx or N < ny:
         N *= 2
     gr = np.zeros((N,N))
     dx = N//2-nx//2
     dy = N//2-ny//2
-    print(dx,dy)
+    print(N,nx,ny,dx,dy)
     #gr[dx:-dx,dy:-dy] = gray[:nx,:ny]
     insert(gr,dx,dy,gray[:nx,:ny])
     fr = fft(gr)
@@ -83,11 +83,17 @@ def smaller(fil,M,ang):
     ngr = ifft(fr).real
     return ngr,fr
 
-img = plt.imread('galaxy_020.jpg')
-img = plt.imread('bird.jpg')
 
-M = 64
-gray,fou = smaller(img,M,140)
-plt.imshow(gray,cmap='gray')
-#plt.imshow(abs(fou)**(1/4),cmap='gray')
-plt.show()
+M = 32
+for n in range(1,214):
+    if n in (61,73,82,104,105,121,123,144,170,186,205,208,211):
+        continue
+    img = plt.imread('galaxies/galaxy_'+str(n).zfill(3)+'.jpg')
+    gray,fou = smaller(img,M,140)
+    plt.clf()
+    plt.title(str(n))
+    #plt.imshow(gray,cmap='gray')
+    plt.imshow(abs(fou)**(1/4),cmap='gray')
+    #plt.show()
+    plt.pause(0.5)
+
