@@ -61,7 +61,7 @@ def smaller(fil, M, ang):
     fr_masked = fr * mask
 
     ngr = ifft(fr_masked).real
-    return ngr, fr_masked
+    return ngr, fr_masked, fr
 
 # Create output directories if they don't exist
 os.makedirs("target", exist_ok=True)
@@ -80,7 +80,7 @@ for n in range(1, 5):
         continue
 
     for ang in rotation_angles:
-        gray, fou = smaller(img, M, ang)
+        gray, fou, fou_2 = smaller(img, M, ang)
         suffix = f"{str(n).zfill(3)}_{ang}"
 
         # Save individual figures
@@ -98,13 +98,13 @@ for n in range(1, 5):
         plt.close(fig)
 
         fig, ax = plt.subplots()
-        ax.imshow(fou.real, cmap='coolwarm')
+        ax.imshow(fou_2.real, cmap='coolwarm')
         ax.axis('off')
         fig.savefig(f'fouriers/real_gal_{suffix}.png', bbox_inches='tight')
         plt.close(fig)
 
         fig, ax = plt.subplots()
-        ax.imshow(fou.imag, cmap='coolwarm')
+        ax.imshow(fou_2.imag, cmap='coolwarm')
         ax.axis('off')
         fig.savefig(f'fouriers/imag_gal_{suffix}.png', bbox_inches='tight')
         plt.close(fig)
